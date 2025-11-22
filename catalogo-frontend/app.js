@@ -1,0 +1,1 @@
+console.log('O arquivo app.js foi carregado com sucesso!');

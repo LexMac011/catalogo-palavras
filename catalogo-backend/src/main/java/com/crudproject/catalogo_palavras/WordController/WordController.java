@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/words")
+@CrossOrigin(origins = "*")
 public class WordController {
 	
 	@Autowired

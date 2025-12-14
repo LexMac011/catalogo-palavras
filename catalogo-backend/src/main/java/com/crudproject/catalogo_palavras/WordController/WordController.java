@@ -32,6 +32,14 @@ public class WordController {
 		
 		return ResponseEntity.ok(words);
 	}
+	// GET por id
+	@GetMapping("/{id}")
+	public ResponseEntity<Word> getWordById(@PathVariable Long id) {
+		return wordRepository.findById(id)
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
+	}
+	
 	
 	// DELETE endpoint
 	@DeleteMapping("/{id}")

@@ -6,21 +6,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teste de Conexão Front-end</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Mostrando itens da API</h1>
+    <div class="container">
+        <h1>Mostrando itens da API</h1>
 
-    <h2>Palavras Salvas</h2>
-    <button id="btnNovo">➕ Adicionar Nova Palavra</button>
-    <form id="wordForm" hidden> <label for="term">Termo:</label>
-        <input type="text" id="term" required> <label for="definition">Definição:</label>
-        <textarea id="definition" required></textarea> <button type="submit">Salvar Palavra</button>
-    </form>
-    <ul id="wordsList">
-    </ul>
+        <h2>Catálogo de Palavras &#128213</h2>
+        <button id="btnNovo">➕ Adicionar Nova Palavra</button>
+        <form id="wordForm" hidden> <label for="term">Termo:</label>
+            <input type="text" id="term" required> <label for="definition">Definição:</label>
+            <textarea id="definition" required></textarea> <button type="submit">Salvar Palavra</button>
+        </form>
+        <ul id="wordsList">
+        </ul>
 
-    <script src="app.js"></script>
+        <script src="app.js"></script>
+    </div>
 </body>
 
 </html>

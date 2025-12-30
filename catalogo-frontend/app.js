@@ -6,6 +6,7 @@ const form = document.getElementById('wordForm');
 const termInput = document.getElementById('term');
 const definitionInput = document.getElementById('definition');
 const submitButton = form.querySelector('button[type="submit"]');
+const btnNovo = document.getElementById('btnNovo');
 
 async function fetchWords() {
     try {
@@ -96,6 +97,24 @@ async function deleteWord(id) {
     }
 }
 
+async function createWord(wordData) {
+    const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(wordData)
+    });
+    return response
+}
+
+async function updateWord(id, wordData) {
+    const response = await fetch(`${API_URL}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(wordData)
+    });
+    return response
+}
+
 async function editWord(id) {
     try {
         // 1. Busca os dados para preencher
@@ -106,40 +125,44 @@ async function editWord(id) {
             termInput.value = wordToEdit.term;
             definitionInput.value = wordToEdit.definition;
 
+            form.setAttribute('data-editing-id', id);
             submitButton.textContent = 'Atualizar Palavra';
             form.removeAttribute('hidden'); // Mostra o formulário agora!
             termInput.focus();
 
             console.log(`Editando a palavra: ${wordToEdit.term} (ID: ${id})`);
 
-            // 3. DEFINE O QUE ACONTECE NO CLIQUE DE SALVAR
-            submitButton.onclick = async (e) => {
-                e.preventDefault(); // Evita que a página recarregue
-
-                const dataToUpdate = {
-                    term: termInput.value,
-                    definition: definitionInput.value
-                };
-
-                const response = await fetch(`${API_URL}/${id}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(dataToUpdate)
-                });
-
-                if (response.ok) {
-                    alert("Palavra atualizada com sucesso!");
-                    form.setAttribute('hidden', true); // Esconde o form de novo
-                    fetchWords(); // Recarrega a lista
-                }
-            };
-        }
+        };
     } catch (error) {
         console.error('Falha na comunicação com a API:', error);
     }
 }
 
+btnNovo.addEventListener('click', () => {
+    form.reset();
+    form.removeAttribute('data-editing-id');
+    submitButton.textContent = 'Salvar';
+    form.removeAttribute('hidden');
+});
 
-fetchWords()
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const id = form.getAttribute('data-editing-id');
+    const wordData = { term: termInput.value, definition: definitionInput.value };
+
+    if (id) {
+        await updateWord(id, wordData);
+    } else {
+        await createWord(wordData);
+    }
+    form.reset();
+    form.removeAttribute('data-editing-id');
+    form.setAttribute('hidden', true);
+    fetchWords();
+})
+
+fetchWords();
+
 
 

@@ -1,6 +1,6 @@
 //const { AxesFactory } = require("matter");
 
-const API_URL = 'http://localhost:8081/api/words';
+const API_URL = 'https://catalogo-palavras-production.up.railway.app/api/words';
 const wordsList = document.getElementById('wordsList');
 const form = document.getElementById('wordForm');
 const termInput = document.getElementById('term');

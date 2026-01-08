@@ -74,7 +74,10 @@ function displayWords(words) {
             editWord(word.id);
         });
 
-        listItem.textContent = `[ID: ${word.id}] ${word.term}: ${word.definition}`;
+        listItem.innerHTML = `
+            <p><strong>ID: ${word.id}</strong></p>
+            <p>${word.term}:</p>
+            <p>${word.definition}</p>`;
         listItem.appendChild(deleteButton);
         listItem.appendChild(editButton);
         wordsList.appendChild(listItem);
